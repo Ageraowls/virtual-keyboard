@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const KEYBOARD = document.createElement('div');
   const KEYBOARD_KEYS = document.createElement('div');
   const EN_LETTERS = Object.keys(LANG);
-  const RU_LETTERS = Object.values(LANG);
+  // const RU_LETTERS = Object.values(LANG);
   const DOM_ELEMENTS = [TITLE, TEXT_AREA, KEYBOARD];
   BODY.className = 'body';
   WRAPPER.className = 'wrapper';
@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   TEXT_AREA.className = 'text-area';
   TEXT_AREA.style.resize = 'none';
   TEXT_AREA.setAttribute('autofocus', '');
+  TEXT_AREA.placeholder = 'Если есть возможность, то проверьте через 2 дня, спасибо';
   BODY.append(WRAPPER);
   DOM_ELEMENTS.forEach((item) => WRAPPER.append(item));
   KEYBOARD.append(KEYBOARD_KEYS);
@@ -217,8 +218,4 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(e.keyCode);
     console.log(e);
   });
-
-  console.log(
-    'Привет, я не успел сделать большую часть, если есть возможность, не могли бы вы проверить,через 2 дня'
-  );
 });
