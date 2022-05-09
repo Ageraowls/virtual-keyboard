@@ -1,0 +1,148 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.body {
+  background-color: rgb(231, 218, 218);
+  font-family: 'Libre Franklin', sans-serif;
+}
+
+.title {
+  letter-spacing: 8px;
+  padding: 10px;
+  color: rgb(247, 202, 201);
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+.text-area {
+  width: 1020px;
+  height: 180px;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 400;
+  font-size: 25px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.text-area:focus {
+  outline: none;
+}
+.wrapper {
+  text-align: center;
+}
+
+.keyboard {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 0;
+  background-color: rgb(231, 218, 218);
+}
+
+.keyboard__keys {
+  width: 1020px;
+  margin: 0 auto;
+  box-shadow: 0 0 2px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.keyboard__key {
+  width: 60px;
+  height: 60px;
+  font-family: 'Libre Franklin', sans-serif;
+  border: 0;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+.keyboard__key-backspace {
+  width: 170px;
+}
+
+.keyboard__key-tab {
+  width: 100px;
+}
+
+.keyboard__key-caps {
+  width: 100px;
+}
+
+.keyboard__key-enter {
+  width: 100px;
+}
+
+.keyboard__key-shift-left {
+  width: 100px;
+}
+
+.keyboard__key-shift-right {
+  width: 100px;
+}
+
+.keyboard__key-ctrl {
+  width: 100px;
+}
+
+.keyboard__key-space {
+  width: 100px;
+}
+
+.keyboard__key-alt-left {
+  width: 100px;
+}
+
+.keyboard__key-alt-right {
+  width: 100px;
+}
+
+.keyboard__key-arrow {
+  width: 100px;
+}
+
+.keyboard__key-shift-left {
+  width: 170px;
+}
+
+.keyboard__key-elem {
+  width: 60px;
+}
+
+.keyboard__key-enter {
+  width: 130px;
+}
+
+.keyboard__key-shift-right {
+  width: 60px;
+}
+
+.keyboard__key-ctrl {
+  width: 100px;
+}
+
+.keyboard__key-space {
+  width: 380px;
+}
+
+.keyboard__key:active,
+.keyboard__key:hover {
+  box-shadow: 0 0 0;
+  background-color: rgb(247, 202, 201);
+  transition: all 0.3s linear;
+}
+
+.keyboard__key--active {
+  box-shadow: 0 0 0;
+  background-color: rgb(247, 202, 201);
+}
