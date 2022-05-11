@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'Shift-left':
           KEY_ELEMENT.classList.add('keyboard__key-shift-left');
           KEY_ELEMENT.textContent = 'Shift';
+          KEY_ELEMENT.addEventListener('click');
           break;
 
         case '|':
@@ -142,33 +143,44 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'Ctrl-right':
           KEY_ELEMENT.classList.add('keyboard__key-ctrl-right');
           KEY_ELEMENT.textContent = 'Ctrl';
-          /* function translate() {
-            const TEXT_BUTTONS = document.querySelectorAll('button');
-            TEXT_BUTTONS.forEach((item) => {
-              const HIDDEN_ELEMENTS = [
-                'Shift',
-                'Ctrl',
-                'Fn',
-                'Win',
-                'Alt',
-                String.fromCharCode(9660),
-                String.fromCharCode(9650),
-                String.fromCharCode(9654),
-                String.fromCharCode(9664),
-              ];
-              const text = item.textContent;
-              if (!HIDDEN_ELEMENTS.includes(text)) {
-                item.textContent = LANG[text];
-              }
-              KEY_ELEMENT.classList.add('keyboard__key--active');
-              textarea.focus();
-            });
-          } */
           break;
 
         case 'Caps Lock':
-          KEY_ELEMENT.classList.add('keyboard__key-caps', 'keyboard__key-activatable');
-          KEY_ELEMENT.addEventListener('click', () => {});
+          KEY_ELEMENT.classList.add('keyboard__key-caps');
+          KEY_ELEMENT.addEventListener('click', () => {
+            const textBtn = document.querySelectorAll('.keyboard__key');
+            const HIDDEN_ELEMENTS = [
+              'Shift',
+              'Ctrl',
+              'Fn',
+              'Win',
+              'Alt',
+              'Backspace',
+              'Caps Lock',
+              'Enter',
+              'Tab',
+              'Space',
+              String.fromCharCode(9660),
+              String.fromCharCode(9650),
+              String.fromCharCode(9654),
+              String.fromCharCode(9664),
+            ];
+            if (!KEY_ELEMENT.classList.contains('keyboard__key-activatable')) {
+              KEY_ELEMENT.classList.add('keyboard__key-activatable');
+              textBtn.forEach((item) => {
+                if (!HIDDEN_ELEMENTS.includes(item.textContent)) {
+                  item.innerHTML = item.textContent.toUpperCase();
+                }
+              });
+            } else {
+              KEY_ELEMENT.classList.remove('keyboard__key-activatable');
+              textBtn.forEach((item) => {
+                if (!HIDDEN_ELEMENTS.includes(item.textContent)) {
+                  item.innerHTML = item.textContent.toLowerCase();
+                }
+              });
+            }
+          });
           break;
 
         case 'Enter':
@@ -191,8 +203,15 @@ document.addEventListener('DOMContentLoaded', () => {
           KEY_ELEMENT.textContent = key.toLowerCase();
           KEY_ELEMENT.addEventListener('click', () => {
             const out = document.querySelector('textarea').value;
-            textarea.value = out + key;
-            textarea.focus();
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            if (KEY_ELEMENT.textContent === key.toUpperCase()) {
+              textarea.value = out + key.toUpperCase();
+              textarea.focus();
+            } else {
+              textarea.value = out + key.toLowerCase();
+              textarea.focus();
+            }
           });
           break;
       }
@@ -200,22 +219,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   createKeys();
-
-  const keyboardCode = document.querySelectorAll('.keyboard__key');
-  keyboardCode.forEach((item) => {
-    const code = item.textContent.charCodeAt();
-    item.setAttribute('data', code);
-  });
-  // document.querySelector('.text-area').onkeypress = function (event) {
-  //   console.log(1);
-  //   console.log('charCode' + ' ' + event.charCode);
-  //   console.log('key' + ' ' + event.code);
-  // };
-
-  const s = document.querySelector('.text-area');
-
-  s.addEventListener('keydown', (e) => {
-    console.log(e.keyCode);
-    console.log(e);
-  });
 });
