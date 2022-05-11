@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const KEYBOARD = document.createElement('div');
   const KEYBOARD_KEYS = document.createElement('div');
   const EN_LETTERS = Object.keys(LANG);
-  const EN_SYMBOLS = Object.values(SYMBOLS);
   // const RU_LETTERS = Object.values(LANG);
   const DOM_ELEMENTS = [TITLE, TEXT_AREA, KEYBOARD];
   BODY.className = 'body';
@@ -21,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
   TEXT_AREA.className = 'text-area';
   TEXT_AREA.style.resize = 'none';
   TEXT_AREA.setAttribute('autofocus', '');
-  TEXT_AREA.placeholder = 'Если есть возможность, то проверьте через 2 дня, спасибо';
   BODY.append(WRAPPER);
   DOM_ELEMENTS.forEach((item) => WRAPPER.append(item));
   KEYBOARD.append(KEYBOARD_KEYS);
@@ -266,4 +264,70 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   createKeys();
+
+  const textArea = document.querySelector('textarea');
+  const btn = document.querySelectorAll('button');
+  const charCodeArray = [];
+  const capsLock = document.querySelector('.keyboard__key-caps');
+  const spaceBtn = document.querySelector('.keyboard__key-space');
+  const arrowUp = document.querySelector('.keyboard__key-arrup');
+  const arrowLeft = document.querySelector('.keyboard__key-arrleft');
+  const arrowRight = document.querySelector('.keyboard__key-arright');
+  const arrowDown = document.querySelector('.keyboard__key-arrdown');
+
+  btn.forEach((item) => {
+    item.setAttribute('data', item.textContent.charCodeAt());
+    charCodeArray.push(item.textContent.charCodeAt());
+  });
+
+  textArea.addEventListener('keydown', (e) => {
+    btn.forEach((item) => {
+      if (item.textContent === e.key) {
+        item.classList.add('keyboard__key--active');
+      }
+      if (e.code === 'Tab') {
+        e.preventDefault();
+        textArea.value += ' ';
+        textArea.focus();
+      }
+      if (e.code === 'ArrowUp') {
+        arrowUp.classList.add('keyboard__key--active');
+      }
+      if (e.code === 'ArrowLeft') {
+        arrowLeft.classList.add('keyboard__key--active');
+      }
+      if (e.code === 'ArrowRight') {
+        arrowRight.classList.add('keyboard__key--active');
+      }
+      if (e.code === 'ArrowDown') {
+        arrowDown.classList.add('keyboard__key--active');
+      }
+
+      if (e.code === 'Space') {
+        spaceBtn.classList.add('keyboard__key--active');
+      }
+    });
+  });
+  textArea.addEventListener('keyup', (e) => {
+    btn.forEach((item) => {
+      if (item.textContent === e.key) {
+        item.classList.remove('keyboard__key--active');
+      }
+      if (e.code === 'Space') {
+        spaceBtn.classList.remove('keyboard__key--active');
+      }
+      if (e.code === 'ArrowUp') {
+        arrowUp.classList.remove('keyboard__key--active');
+      }
+      if (e.code === 'ArrowLeft') {
+        arrowLeft.classList.remove('keyboard__key--active');
+      }
+      if (e.code === 'ArrowRight') {
+        arrowRight.classList.remove('keyboard__key--active');
+      }
+      if (e.code === 'ArrowDown') {
+        arrowDown.classList.remove('keyboard__key--active');
+      }
+    });
+  });
 });
