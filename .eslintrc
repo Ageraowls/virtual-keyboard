@@ -6,6 +6,7 @@
   },
   "rules": {
     "max-len": ["error", { "code": 120 }],
+    "no-param-reassign": 0,
     "import/extensions": [
       "error",
       "ignorePackages",

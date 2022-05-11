@@ -69,7 +69,7 @@
 }
 
 .keyboard__key-backspace {
-  width: 170px;
+  width: 100px;
 }
 
 .keyboard__key-tab {
@@ -143,7 +143,8 @@
   transition: all 0.3s linear;
 }
 
-.keyboard__key--active {
+.keyboard__key--active,
+.keyboard__key-activatable {
   box-shadow: 0 0 0;
   background-color: #f7cac9;
 }
