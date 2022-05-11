@@ -1,4 +1,5 @@
 import LANG from './languages/language.js';
+import SYMBOLS from './languages/symbols.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const BODY = document.querySelector('body');
@@ -8,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const KEYBOARD = document.createElement('div');
   const KEYBOARD_KEYS = document.createElement('div');
   const EN_LETTERS = Object.keys(LANG);
+  const EN_SYMBOLS = Object.values(SYMBOLS);
   // const RU_LETTERS = Object.values(LANG);
   const DOM_ELEMENTS = [TITLE, TEXT_AREA, KEYBOARD];
   BODY.className = 'body';
@@ -32,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
       KEY_ELEMENT.setAttribute('type', 'button');
       KEY_ELEMENT.classList.add('keyboard__key');
       KEY_ELEMENT.textContent = key;
-      let isDown = false;
+      let isDown = true;
       const HIDDEN_ELEMENTS = [
         'Shift',
         'Ctrl',
@@ -56,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         textBtn.forEach((item) => {
           if (!HIDDEN_ELEMENTS.includes(item.textContent)) {
             item.innerHTML = item.textContent.toUpperCase();
-            isDown = false;
+            isDown = true;
           }
         });
       }
@@ -66,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         textBtn.forEach((item) => {
           if (!HIDDEN_ELEMENTS.includes(item.textContent)) {
             item.innerHTML = item.textContent.toLowerCase();
-            isDown = true;
+            isDown = false;
           }
         });
       }
@@ -140,8 +142,41 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'Shift-left':
           KEY_ELEMENT.classList.add('keyboard__key-shift-left');
           KEY_ELEMENT.textContent = 'Shift';
-          KEY_ELEMENT.addEventListener('mousedown', upperCase);
-          KEY_ELEMENT.addEventListener('mouseup', lowerCase);
+          KEY_ELEMENT.addEventListener('mousedown', () => {
+            upperCase();
+            const textBtn = document.querySelectorAll('.keyboard__key');
+            textBtn.forEach((item) => {
+              if (isDown === true && Object.keys(SYMBOLS).includes(item.textContent)) {
+                item.innerHTML = SYMBOLS[item.textContent];
+              }
+            });
+          });
+          KEY_ELEMENT.addEventListener('mouseup', () => {
+            lowerCase();
+            const textBtn = document.querySelectorAll('.keyboard__key');
+            textBtn.forEach((item) => {
+              if (isDown === false && Object.values(SYMBOLS).includes(item.textContent)) {
+                if (item.textContent === ')') {
+                  item.innerHTML = 0;
+                } else if (item.textContent === '!') item.innerHTML = 1;
+                else if (item.textContent === '@') item.innerHTML = 2;
+                else if (item.textContent === '#') item.innerHTML = 3;
+                else if (item.textContent === '$') item.innerHTML = 4;
+                else if (item.textContent === '%') item.innerHTML = 5;
+                else if (item.textContent === '^') item.innerHTML = 6;
+                else if (item.textContent === '&') item.innerHTML = 7;
+                else if (item.textContent === '*') item.innerHTML = 8;
+                else if (item.textContent === '(') item.innerHTML = 9;
+                else if (item.textContent === '~') item.innerHTML = '`';
+                else if (item.textContent === '>') item.innerHTML = '.';
+                else if (item.textContent === '<') item.innerHTML = ',';
+                else if (item.textContent === '?') item.innerHTML = '/';
+                else if (item.textContent === ':') item.innerHTML = ';';
+                else if (item.textContent === '{') item.innerHTML = '[';
+                else if (item.textContent === '}') item.innerHTML = ']';
+              }
+            });
+          });
           break;
 
         case '|':
@@ -216,8 +251,6 @@ document.addEventListener('DOMContentLoaded', () => {
           KEY_ELEMENT.textContent = key.toLowerCase();
           KEY_ELEMENT.addEventListener('click', () => {
             const out = document.querySelector('textarea').value;
-            const start = textarea.selectionStart;
-            const end = textarea.selectionEnd;
             if (KEY_ELEMENT.textContent === key.toUpperCase()) {
               textarea.value = out + key.toUpperCase();
               textarea.focus();
@@ -226,6 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
               textarea.focus();
             }
           });
+
           break;
       }
     });
