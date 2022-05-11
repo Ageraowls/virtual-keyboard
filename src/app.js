@@ -32,7 +32,44 @@ document.addEventListener('DOMContentLoaded', () => {
       KEY_ELEMENT.setAttribute('type', 'button');
       KEY_ELEMENT.classList.add('keyboard__key');
       KEY_ELEMENT.textContent = key;
+      let isDown = false;
+      const HIDDEN_ELEMENTS = [
+        'Shift',
+        'Ctrl',
+        'Fn',
+        'Win',
+        'Alt',
+        'Backspace',
+        'Caps Lock',
+        'Enter',
+        'Tab',
+        'Space',
+        String.fromCharCode(9660),
+        String.fromCharCode(9650),
+        String.fromCharCode(9654),
+        String.fromCharCode(9664),
+      ];
       KEYBOARD_KEYS.append(KEY_ELEMENT);
+
+      function upperCase() {
+        const textBtn = document.querySelectorAll('.keyboard__key');
+        textBtn.forEach((item) => {
+          if (!HIDDEN_ELEMENTS.includes(item.textContent)) {
+            item.innerHTML = item.textContent.toUpperCase();
+            isDown = false;
+          }
+        });
+      }
+
+      function lowerCase() {
+        const textBtn = document.querySelectorAll('.keyboard__key');
+        textBtn.forEach((item) => {
+          if (!HIDDEN_ELEMENTS.includes(item.textContent)) {
+            item.innerHTML = item.textContent.toLowerCase();
+            isDown = true;
+          }
+        });
+      }
 
       if (LINE_BREAK.includes(key)) {
         const BR = document.createElement('br');
@@ -103,7 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'Shift-left':
           KEY_ELEMENT.classList.add('keyboard__key-shift-left');
           KEY_ELEMENT.textContent = 'Shift';
-          KEY_ELEMENT.addEventListener('click');
+          KEY_ELEMENT.addEventListener('mousedown', upperCase);
+          KEY_ELEMENT.addEventListener('mouseup', lowerCase);
           break;
 
         case '|':
@@ -148,37 +186,12 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'Caps Lock':
           KEY_ELEMENT.classList.add('keyboard__key-caps');
           KEY_ELEMENT.addEventListener('click', () => {
-            const textBtn = document.querySelectorAll('.keyboard__key');
-            const HIDDEN_ELEMENTS = [
-              'Shift',
-              'Ctrl',
-              'Fn',
-              'Win',
-              'Alt',
-              'Backspace',
-              'Caps Lock',
-              'Enter',
-              'Tab',
-              'Space',
-              String.fromCharCode(9660),
-              String.fromCharCode(9650),
-              String.fromCharCode(9654),
-              String.fromCharCode(9664),
-            ];
             if (!KEY_ELEMENT.classList.contains('keyboard__key-activatable')) {
               KEY_ELEMENT.classList.add('keyboard__key-activatable');
-              textBtn.forEach((item) => {
-                if (!HIDDEN_ELEMENTS.includes(item.textContent)) {
-                  item.innerHTML = item.textContent.toUpperCase();
-                }
-              });
+              upperCase();
             } else {
               KEY_ELEMENT.classList.remove('keyboard__key-activatable');
-              textBtn.forEach((item) => {
-                if (!HIDDEN_ELEMENTS.includes(item.textContent)) {
-                  item.innerHTML = item.textContent.toLowerCase();
-                }
-              });
+              lowerCase();
             }
           });
           break;
